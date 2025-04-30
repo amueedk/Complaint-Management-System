@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaint Management System - {% block title %}{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            200: '#bae6fd',
+                            300: '#7dd3fc',
+                            400: '#38bdf8',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            700: '#0369a1',
+                            800: '#075985',
+                            900: '#0c4a6e',
+                            950: '#082f49',
+                        },
+                        dark: {
+                            100: '#1e293b',
+                            200: '#0f172a',
+                            300: '#020617',
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'soft': '0 2px 15px 0 rgba(0, 0, 0, 0.05)',
+                        'strong': '0 5px 25px 0 rgba(0, 0, 0, 0.1)',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+        }
+        
+        .card-shadow {
+            box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.05);
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+        }
+        
+        .dark .card-shadow {
+            box-shadow: 0 5px 15px 0 rgba(0, 0, 0, 0.2);
+        }
+        
+        .card-shadow:hover {
+            box-shadow: 0 5px 25px 0 rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .dark .card-shadow:hover {
+            box-shadow: 0 8px 25px 0 rgba(0, 0, 0, 0.3);
+        }
+
+        .btn-primary {
+            transition: all 0.2s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-1px);
+        }
+        
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+        
+        .form-input {
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .animated-icon {
+            transition: transform 0.3s ease;
+        }
+        
+        .animated-icon:hover {
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 dark:bg-dark-200 dark:text-gray-100 min-h-screen flex flex-col">
+    <header class="border-b border-gray-200 dark:border-dark-100 sticky top-0 bg-white/90 dark:bg-dark-200/90 backdrop-blur-sm z-10 py-3">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center">
+                <a href="{{ url_for('home') }}" class="text-xl font-bold text-primary-600 dark:text-primary-400 flex items-center">
+                    <i class="fas fa-comments-alt mr-2"></i>
+                    <span>Complaint System</span>
+                </a>
+                
+                <div class="flex items-center gap-4">
+                    <!-- Light/Dark Mode Toggle -->
+                    <button id="theme-toggle" class="p-2 rounded-full text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-dark-100 focus:outline-none">
+                        <i id="theme-toggle-dark-icon" class="fas fa-moon text-gray-500 hidden"></i>
+                        <i id="theme-toggle-light-icon" class="fas fa-sun text-yellow-500 hidden"></i>
+                    </button>
+                    
+                    <!-- Mobile Menu Button -->
+                    <button id="menu-toggle" class="md:hidden p-2">
+                        <i class="fas fa-bars text-gray-600 dark:text-gray-300"></i>
+                    </button>
+                    
+                    <!-- Desktop Navigation -->
+                    <nav class="hidden md:flex items-center gap-1">
+                        <a href="{{ url_for('home') }}" class="px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-100 text-gray-700 dark:text-gray-200">Home</a>
+                        
+                        {% if current_user.is_authenticated %}
+                            <a href="{{ url_for('dashboard') }}" class="px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-100 text-gray-700 dark:text-gray-200">Dashboard</a>
+                            <a href="{{ url_for('new_complaint') }}" class="px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-100 text-gray-700 dark:text-gray-200">New Complaint</a>
+                            
+                            {% if current_user.is_admin %}
+                                <a href="{{ url_for('admin_users') }}" class="px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-100 text-gray-700 dark:text-gray-200">Users</a>
+                                <a href="{{ url_for('admin_hostels') }}" class="px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-100 text-gray-700 dark:text-gray-200">Hostels</a>
+                                <a href="{{ url_for('admin_reports') }}" class="px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-100 text-gray-700 dark:text-gray-200">Reports</a>
+                            {% endif %}
+                            
+                            <div class="relative group ml-1">
+                                <button class="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-100 text-gray-700 dark:text-gray-200">
+                                    <span>{{ current_user.username }}</span>
+                                    <i class="fas fa-chevron-down text-xs"></i>
+                                </button>
+                                <div class="absolute right-0 top-full mt-1 w-48 bg-white dark:bg-dark-100 rounded-lg shadow-soft dark:shadow-strong opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 z-50">
+                                    <div class="py-2">
+                                        <a href="{{ url_for('logout') }}" class="flex items-center px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-dark-200">
+                                            <i class="fas fa-sign-out-alt w-5 text-center mr-2"></i>
+                                            <span>Logout</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% else %}
+                            <a href="{{ url_for('login') }}" class="px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-100 text-gray-700 dark:text-gray-200">Login</a>
+                            <a href="{{ url_for('register') }}" class="btn-primary ml-1 px-4 py-2 bg-primary-600 hover:bg-primary-700 dark:bg-primary-700 dark:hover:bg-primary-600 text-white rounded-lg">Register</a>
+                        {% endif %}
+                    </nav>
+                </div>
+            </div>
+            
+            <!-- Mobile Navigation -->
+            <div id="mobile-menu" class="md:hidden hidden mt-4 pb-2 border-t border-gray-100 dark:border-dark-100 pt-2">
+                <nav class="flex flex-col gap-1">
+                    <a href="{{ url_for('home') }}" class="px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-100 text-gray-700 dark:text-gray-200">Home</a>
+                    
+                    {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('dashboard') }}" class="px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-100 text-gray-700 dark:text-gray-200">Dashboard</a>
+                        <a href="{{ url_for('new_complaint') }}" class="px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-100 text-gray-700 dark:text-gray-200">New Complaint</a>
+                        
+                        {% if current_user.is_admin %}
+                            <a href="{{ url_for('admin_users') }}" class="px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-100 text-gray-700 dark:text-gray-200">Users</a>
+                            <a href="{{ url_for('admin_hostels') }}" class="px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-100 text-gray-700 dark:text-gray-200">Hostels</a>
+                            <a href="{{ url_for('admin_reports') }}" class="px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-100 text-gray-700 dark:text-gray-200">Reports</a>
+                        {% endif %}
+                        
+                        <a href="{{ url_for('logout') }}" class="px-3 py-2 rounded-lg text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-dark-100">Logout</a>
+                    {% else %}
+                        <a href="{{ url_for('login') }}" class="px-3 py-2 rounded-lg hover:bg-gray-100 dark:hover:bg-dark-100 text-gray-700 dark:text-gray-200">Login</a>
+                        <a href="{{ url_for('register') }}" class="btn-primary mt-1 px-4 py-2 bg-primary-600 hover:bg-primary-700 dark:bg-primary-700 dark:hover:bg-primary-600 text-white rounded-lg text-center">Register</a>
+                    {% endif %}
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-grow py-8">
+        <div class="container mx-auto px-4">
+            {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="mb-6 card-shadow bg-white dark:bg-dark-100 rounded-lg overflow-hidden" role="alert">
+                            <div class="px-4 py-3 flex justify-between items-center border-l-4 border-primary-500 dark:border-primary-600">
+                                <p class="text-gray-700 dark:text-gray-200">{{ message }}</p>
+                                <button class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200" onclick="this.parentElement.parentElement.remove()">
+                                    <i class="fas fa-times"></i>
+                                </button>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+
+            {% block content %}{% endblock %}
+        </div>
+    </main>
+
+    <footer class="py-6 bg-white dark:bg-dark-100 border-t border-gray-200 dark:border-dark-200">
+        <div class="container mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <div>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">&copy; 2023 Complaint Management System</p>
+                </div>
+                <div class="flex gap-4">
+                    <a href="#" class="text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 animated-icon">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 animated-icon">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="#" class="text-gray-500 hover:text-primary-600 dark:text-gray-400 dark:hover:text-primary-400 animated-icon">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Theme toggle functionality
+        const themeToggleDarkIcon = document.getElementById('theme-toggle-dark-icon');
+        const themeToggleLightIcon = document.getElementById('theme-toggle-light-icon');
+
+        // Change the icons inside the button based on previous settings
+        if (localStorage.getItem('color-theme') === 'dark' || 
+            (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            themeToggleLightIcon.classList.remove('hidden');
+            document.documentElement.classList.add('dark');
+        } else {
+            themeToggleDarkIcon.classList.remove('hidden');
+            document.documentElement.classList.remove('dark');
+        }
+
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        themeToggleBtn.addEventListener('click', function() {
+            // Toggle icons
+            themeToggleDarkIcon.classList.toggle('hidden');
+            themeToggleLightIcon.classList.toggle('hidden');
+
+            // Toggle dark mode class
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('color-theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('color-theme', 'dark');
+            }
+        });
+
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        menuToggle.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Auto-dismiss flash messages after 5 seconds
+        setTimeout(function() {
+            const alerts = document.querySelectorAll('[role="alert"]');
+            alerts.forEach(function(alert) {
+                alert.remove();
+            });
+        }, 5000);
+    </script>
+</body>
+</html> 

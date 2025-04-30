@@ -1,0 +1,109 @@
+{% extends "layout.html" %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<div class="flex items-center justify-center py-10">
+    <div class="max-w-md w-full">
+        <div class="card-shadow bg-white dark:bg-dark-100 rounded-xl overflow-hidden">
+            <div class="p-8">
+                <div class="text-center mb-8">
+                    <h1 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">Create an account</h1>
+                    <p class="text-gray-600 dark:text-gray-400">Join our complaint management platform</p>
+                </div>
+                
+                <form method="POST" action="{{ url_for('register') }}" class="space-y-6">
+                    <div>
+                        <label for="username" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Username</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-user text-gray-400"></i>
+                            </div>
+                            <input type="text" id="username" name="username" 
+                                   class="pl-10 block w-full border border-gray-300 dark:border-gray-600 rounded-lg py-3 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:bg-dark-200 dark:placeholder-gray-400"
+                                   placeholder="Choose a username" 
+                                   required autocomplete="username">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Email address</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-envelope text-gray-400"></i>
+                            </div>
+                            <input type="email" id="email" name="email" 
+                                   class="pl-10 block w-full border border-gray-300 dark:border-gray-600 rounded-lg py-3 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:bg-dark-200 dark:placeholder-gray-400"
+                                   placeholder="Enter your email" 
+                                   required autocomplete="email">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Password</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                <i class="fas fa-lock text-gray-400"></i>
+                            </div>
+                            <input type="password" id="password" name="password" 
+                                   class="pl-10 block w-full border border-gray-300 dark:border-gray-600 rounded-lg py-3 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:bg-dark-200 dark:placeholder-gray-400"
+                                   placeholder="Create a password" 
+                                   required autocomplete="new-password">
+                        </div>
+                        <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Must be at least 8 characters</p>
+                    </div>
+                    
+                    <div class="flex items-center">
+                        <input id="terms" name="terms" type="checkbox" 
+                               class="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 dark:border-gray-600 rounded" required>
+                        <label for="terms" class="ml-2 block text-sm text-gray-700 dark:text-gray-300">
+                            I agree to the <a href="#" class="text-primary-600 hover:text-primary-500 dark:text-primary-400">Terms</a> and <a href="#" class="text-primary-600 hover:text-primary-500 dark:text-primary-400">Privacy Policy</a>
+                        </label>
+                    </div>
+                    
+                    <button type="submit" 
+                            class="btn-primary w-full py-3 px-4 bg-primary-600 hover:bg-primary-700 dark:bg-primary-700 dark:hover:bg-primary-600 text-white rounded-lg flex items-center justify-center">
+                        <span>Create account</span>
+                        <i class="fas fa-user-plus ml-2"></i>
+                    </button>
+                </form>
+                
+                <div class="mt-8">
+                    <div class="relative">
+                        <div class="absolute inset-0 flex items-center">
+                            <div class="w-full border-t border-gray-300 dark:border-gray-600"></div>
+                        </div>
+                        <div class="relative flex justify-center text-sm">
+                            <span class="px-2 bg-white dark:bg-dark-100 text-gray-500 dark:text-gray-400">Or sign up with</span>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 grid grid-cols-3 gap-3">
+                        <button type="button" 
+                                class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm bg-white dark:bg-dark-200 text-sm font-medium text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-dark-300">
+                            <i class="fab fa-google"></i>
+                        </button>
+                        <button type="button"
+                                class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm bg-white dark:bg-dark-200 text-sm font-medium text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-dark-300">
+                            <i class="fab fa-facebook-f"></i>
+                        </button>
+                        <button type="button"
+                                class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm bg-white dark:bg-dark-200 text-sm font-medium text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-dark-300">
+                            <i class="fab fa-github"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="px-8 py-4 bg-gray-50 dark:bg-dark-200 border-t border-gray-200 dark:border-gray-700 text-center">
+                <p class="text-sm text-gray-600 dark:text-gray-400">
+                    Already have an account? 
+                    <a href="{{ url_for('login') }}" class="font-medium text-primary-600 hover:text-primary-500 dark:text-primary-400">
+                        Sign in
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

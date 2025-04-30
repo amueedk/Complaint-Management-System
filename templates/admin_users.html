@@ -1,0 +1,52 @@
+{% extends "layout.html" %}
+
+{% block title %}Admin - Manage Users{% endblock %}
+
+{% block content %}
+<div class="flex flex-wrap justify-between items-center mb-8">
+    <h1 class="text-3xl font-bold text-primary-dark">Manage Users</h1>
+    <a href="{{ url_for('dashboard') }}" class="neo-btn inline-flex items-center px-6 py-3 bg-background text-primary-dark rounded-lg focus:outline-none">
+        <i class="fas fa-arrow-left mr-2"></i> Back to Dashboard
+    </a>
+</div>
+
+<div class="neo-card bg-background overflow-hidden">
+    <div class="px-6 py-4 bg-primary-light border-b border-primary">
+        <h2 class="text-xl font-semibold text-primary-dark">All Users</h2>
+    </div>
+    <div class="overflow-x-auto">
+        <table class="w-full">
+            <thead>
+                <tr class="bg-secondary-light text-left">
+                    <th class="px-6 py-4 text-sm font-medium text-secondary-dark">ID</th>
+                    <th class="px-6 py-4 text-sm font-medium text-secondary-dark">Username</th>
+                    <th class="px-6 py-4 text-sm font-medium text-secondary-dark">Email</th>
+                    <th class="px-6 py-4 text-sm font-medium text-secondary-dark">Role</th>
+                    <th class="px-6 py-4 text-sm font-medium text-secondary-dark">Complaints</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-secondary-light">
+                {% for user in users %}
+                    <tr class="hover:bg-primary-light/20 transition-colors">
+                        <td class="px-6 py-4 text-sm text-secondary-dark">{{ user.id }}</td>
+                        <td class="px-6 py-4 text-sm text-secondary-dark">{{ user.username }}</td>
+                        <td class="px-6 py-4 text-sm text-secondary-dark">{{ user.email }}</td>
+                        <td class="px-6 py-4">
+                            {% if user.is_admin %}
+                                <span class="inline-flex px-3 py-1 text-xs font-medium rounded-full bg-primary-light text-primary-dark">Admin</span>
+                            {% else %}
+                                <span class="inline-flex px-3 py-1 text-xs font-medium rounded-full bg-secondary-light text-secondary-dark">User</span>
+                            {% endif %}
+                        </td>
+                        <td class="px-6 py-4 text-sm text-secondary-dark">
+                            <span class="inline-flex px-3 py-1 text-xs font-medium rounded-full bg-gray-100 text-gray-800">
+                                {{ user.complaints|length }}
+                            </span>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %} 
