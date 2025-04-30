@@ -1,0 +1,159 @@
+2025-04-26 15:56:14,567 - werkzeug - WARNING -  * Debugger is active!
+2025-04-26 15:56:14,578 - werkzeug - INFO -  * Debugger PIN: 142-585-881
+2025-04-26 15:57:39,147 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 15:57:39,147 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 15:57:41,547 - werkzeug - WARNING -  * Debugger is active!
+2025-04-26 15:57:41,557 - werkzeug - INFO -  * Debugger PIN: 142-585-881
+2025-04-26 15:57:43,718 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 15:57:43,718 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 15:57:44,154 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 15:57:45,992 - werkzeug - WARNING -  * Debugger is active!
+2025-04-26 15:57:45,997 - werkzeug - INFO -  * Debugger PIN: 142-585-881
+2025-04-26 15:58:20,592 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 15:58:20,595 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 15:58:22,717 - werkzeug - WARNING -  * Debugger is active!
+2025-04-26 15:58:22,827 - werkzeug - INFO -  * Debugger PIN: 142-585-881
+2025-04-26 15:59:37,677 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 15:59:37] "[32mGET /dashboard HTTP/1.1[0m" 302 -
+2025-04-26 15:59:37,735 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 15:59:37] "GET /login?next=/dashboard HTTP/1.1" 200 -
+2025-04-26 15:59:42,466 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 15:59:42] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-04-26 15:59:42,545 - werkzeug - INFO -  * Detected change in 'C:\\Users\\lenovo\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\flask\\app.py', reloading
+2025-04-26 15:59:42,545 - werkzeug - INFO -  * Detected change in 'C:\\Users\\lenovo\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\flask_login\\utils.py', reloading
+2025-04-26 15:59:42,557 - werkzeug - INFO -  * Detected change in 'C:\\Users\\lenovo\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\flask_sqlalchemy\\query.py', reloading
+2025-04-26 15:59:42,567 - werkzeug - INFO -  * Detected change in 'C:\\Users\\lenovo\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\orm\\query.py', reloading
+2025-04-26 15:59:42,577 - werkzeug - INFO -  * Detected change in 'C:\\Users\\lenovo\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\orm\\session.py', reloading
+2025-04-26 15:59:42,585 - werkzeug - INFO -  * Detected change in 'C:\\Users\\lenovo\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\orm\\context.py', reloading
+2025-04-26 15:59:42,590 - werkzeug - INFO -  * Detected change in 'C:\\Users\\lenovo\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\engine\\base.py', reloading
+2025-04-26 15:59:42,599 - werkzeug - INFO -  * Detected change in 'C:\\Users\\lenovo\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\sql\\elements.py', reloading
+2025-04-26 15:59:42,600 - werkzeug - INFO -  * Detected change in 'C:\\Users\\lenovo\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\sqlalchemy\\engine\\default.py', reloading
+2025-04-26 15:59:42,612 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 15:59:42] "[35m[1mGET /dashboard HTTP/1.1[0m" 500 -
+2025-04-26 15:59:42,817 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 15:59:42] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-04-26 15:59:42,817 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 15:59:42] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-04-26 15:59:42,852 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 15:59:42] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-04-26 15:59:42,930 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 15:59:42] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-04-26 15:59:44,656 - werkzeug - WARNING -  * Debugger is active!
+2025-04-26 15:59:44,677 - werkzeug - INFO -  * Debugger PIN: 142-585-881
+2025-04-26 16:03:26,127 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-26 16:03:26,127 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-04-26 16:03:26,147 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-04-26 16:03:27,027 - werkzeug - WARNING -  * Debugger is active!
+2025-04-26 16:03:27,036 - werkzeug - INFO -  * Debugger PIN: 142-585-881
+2025-04-26 16:03:36,784 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 16:03:36] "[32mGET /login?next=/dashboard HTTP/1.1[0m" 302 -
+2025-04-26 16:03:37,837 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 16:03:37] "GET /complaint/new HTTP/1.1" 200 -
+2025-04-26 16:03:39,657 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 16:03:39] "[32mGET /login HTTP/1.1[0m" 302 -
+2025-04-26 16:03:45,312 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 16:03:45] "GET / HTTP/1.1" 200 -
+2025-04-26 16:03:48,823 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 16:03:48] "GET /admin/hostels HTTP/1.1" 200 -
+2025-04-26 16:03:53,297 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 16:03:53] "GET /complaint/new HTTP/1.1" 200 -
+2025-04-26 16:03:57,134 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 16:03:57] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-04-26 16:03:57,154 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 16:03:57] "GET / HTTP/1.1" 200 -
+2025-04-26 16:04:00,366 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 16:04:00] "GET /login HTTP/1.1" 200 -
+2025-04-26 16:04:03,247 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 16:04:03] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-04-26 16:04:03,350 - werkzeug - INFO -  * Detected change in 'C:\\Users\\lenovo\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\flask\\templating.py', reloading
+2025-04-26 16:04:03,350 - werkzeug - INFO -  * Detected change in 'C:\\Users\\lenovo\\AppData\\Local\\Programs\\Python\\Python312\\Lib\\site-packages\\jinja2\\environment.py', reloading
+2025-04-26 16:04:03,369 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 16:04:03] "[35m[1mGET /dashboard HTTP/1.1[0m" 500 -
+2025-04-26 16:04:03,633 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 16:04:03] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-04-26 16:04:03,642 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 16:04:03] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-04-26 16:04:03,680 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 16:04:03] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-04-26 16:04:04,445 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-04-26 16:04:05,370 - werkzeug - WARNING -  * Debugger is active!
+2025-04-26 16:04:05,374 - werkzeug - INFO -  * Debugger PIN: 142-585-881
+2025-04-26 16:05:06,373 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 16:05:06,373 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 16:05:06,781 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-04-26 16:05:07,863 - werkzeug - WARNING -  * Debugger is active!
+2025-04-26 16:05:07,871 - werkzeug - INFO -  * Debugger PIN: 142-585-881
+2025-04-26 16:05:29,719 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 16:05:29,723 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 16:05:29,751 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 16:05:31,202 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-04-26 16:05:34,574 - werkzeug - WARNING -  * Debugger is active!
+2025-04-26 16:05:34,581 - werkzeug - INFO -  * Debugger PIN: 142-585-881
+2025-04-26 16:05:47,006 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 16:05:47,023 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 16:05:47,026 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 16:05:48,152 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-04-26 16:05:49,611 - werkzeug - WARNING -  * Debugger is active!
+2025-04-26 16:05:49,616 - werkzeug - INFO -  * Debugger PIN: 142-585-881
+2025-04-26 16:06:02,931 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 16:06:02,947 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 16:06:04,395 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-04-26 16:06:05,734 - werkzeug - WARNING -  * Debugger is active!
+2025-04-26 16:06:05,741 - werkzeug - INFO -  * Debugger PIN: 142-585-881
+2025-04-26 16:06:21,403 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 16:06:21,419 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 16:06:21,448 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 16:06:22,301 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-04-26 16:06:24,083 - werkzeug - WARNING -  * Debugger is active!
+2025-04-26 16:06:24,092 - werkzeug - INFO -  * Debugger PIN: 142-585-881
+2025-04-26 16:06:40,020 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 16:06:40,026 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 16:06:40,028 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 16:06:40,555 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-04-26 16:06:42,419 - werkzeug - WARNING -  * Debugger is active!
+2025-04-26 16:06:42,422 - werkzeug - INFO -  * Debugger PIN: 142-585-881
+2025-04-26 16:06:43,439 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 16:06:43,441 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 16:06:43,774 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-04-26 16:06:44,691 - werkzeug - WARNING -  * Debugger is active!
+2025-04-26 16:06:44,701 - werkzeug - INFO -  * Debugger PIN: 142-585-881
+2025-04-26 16:06:59,527 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 16:06:59,554 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 16:06:59,554 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 16:07:00,144 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-04-26 16:07:01,931 - werkzeug - WARNING -  * Debugger is active!
+2025-04-26 16:07:01,955 - werkzeug - INFO -  * Debugger PIN: 142-585-881
+2025-04-26 16:07:03,036 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 16:07:03,051 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 16:07:03,687 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-04-26 16:07:05,369 - werkzeug - WARNING -  * Debugger is active!
+2025-04-26 16:07:05,374 - werkzeug - INFO -  * Debugger PIN: 142-585-881
+2025-04-26 16:07:41,314 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 16:07:41,325 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 16:07:41,328 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 16:07:42,011 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-04-26 16:07:43,264 - werkzeug - WARNING -  * Debugger is active!
+2025-04-26 16:07:43,274 - werkzeug - INFO -  * Debugger PIN: 142-585-881
+2025-04-26 16:08:00,251 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 16:08:00,253 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 16:08:00,262 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 16:08:00,682 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-04-26 16:08:02,188 - werkzeug - WARNING -  * Debugger is active!
+2025-04-26 16:08:02,196 - werkzeug - INFO -  * Debugger PIN: 142-585-881
+2025-04-26 16:08:02,276 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 16:08:02,279 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 16:08:03,525 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-04-26 16:08:04,914 - werkzeug - WARNING -  * Debugger is active!
+2025-04-26 16:08:04,916 - werkzeug - INFO -  * Debugger PIN: 142-585-881
+2025-04-26 16:09:12,117 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 16:09:12,119 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 16:09:12,120 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 16:09:12,461 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-04-26 16:09:13,841 - werkzeug - WARNING -  * Debugger is active!
+2025-04-26 16:09:13,852 - werkzeug - INFO -  * Debugger PIN: 142-585-881
+2025-04-26 16:09:30,691 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:5000
+2025-04-26 16:09:30,691 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-04-26 16:09:30,719 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
+2025-04-26 16:09:31,591 - werkzeug - WARNING -  * Debugger is active!
+2025-04-26 16:09:31,591 - werkzeug - INFO -  * Debugger PIN: 142-585-881
+2025-04-26 16:09:33,233 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 16:09:33] "GET / HTTP/1.1" 200 -
+2025-04-26 16:09:39,941 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 16:09:39] "[32mGET /logout HTTP/1.1[0m" 302 -
+2025-04-26 16:09:39,956 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 16:09:39] "GET / HTTP/1.1" 200 -
+2025-04-26 16:09:41,611 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 16:09:41] "GET /login HTTP/1.1" 200 -
+2025-04-26 16:09:44,056 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 16:09:44] "GET /register HTTP/1.1" 200 -
+2025-04-26 16:10:03,272 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 16:10:03] "[32mPOST /register HTTP/1.1[0m" 302 -
+2025-04-26 16:10:03,289 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 16:10:03] "GET /register HTTP/1.1" 200 -
+2025-04-26 16:10:23,710 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 16:10:23] "[32mPOST /register HTTP/1.1[0m" 302 -
+2025-04-26 16:10:23,724 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 16:10:23] "GET /register HTTP/1.1" 200 -
+2025-04-26 16:10:50,551 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 16:10:50] "[32mPOST /register HTTP/1.1[0m" 302 -
+2025-04-26 16:10:50,568 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 16:10:50] "GET /register HTTP/1.1" 200 -
+2025-04-26 16:10:55,493 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 16:10:55] "GET /login HTTP/1.1" 200 -
+2025-04-26 16:10:58,203 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 16:10:58] "[32mPOST /login HTTP/1.1[0m" 302 -
+2025-04-26 16:10:58,306 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 16:10:58] "[35m[1mGET /dashboard HTTP/1.1[0m" 500 -
+2025-04-26 16:10:58,570 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 16:10:58] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-04-26 16:10:58,576 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 16:10:58] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-04-26 16:10:58,596 - werkzeug - INFO - 127.0.0.1 - - [26/Apr/2025 16:10:58] "[36mGET /dashboard?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-04-26 16:12:14,460 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 16:12:14,460 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 16:12:14,462 - werkzeug - INFO -  * Detected change in 'd:\\2.Books\\SEMESTER 6\\CLOUD COMPUTING\\Project\\app.py', reloading
+2025-04-26 16:12:15,556 - werkzeug - INFO -  * Restarting with watchdog (windowsapi)
