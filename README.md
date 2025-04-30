@@ -57,22 +57,26 @@ python app.py
 ## Project Structure
 
 ```
-
-## CI/CD Pipeline
-
-This project uses GitHub Actions for continuous integration and deployment. The pipeline includes:
-- Automated testing
-- Code quality checks
-- Coverage reporting
-- Automated deployment (configured in the workflow file)
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch
-3. Commit your changes
-4. Push to the branch
-5. Create a Pull Request
+complaint-management-system/
+├── app.py                # Main application file
+├── requirements.txt      # Python dependencies
+├── static/               # Static files (CSS, JS)
+│   ├── css/
+│   │   └── style.css
+│   └── js/
+│       └── main.js
+├── templates/            # HTML templates
+│   ├── admin_users.html
+│   ├── dashboard.html
+│   ├── home.html
+│   ├── layout.html
+│   ├── login.html
+│   ├── new_complaint.html
+│   ├── register.html
+│   └── view_complaint.html
+└── instance/             # Instance-specific files
+    └── complaints.db     # SQLite database (created automatically)
+```
 
 ## License
 
