@@ -12,7 +12,7 @@
                     <p class="text-gray-600 dark:text-gray-400">Join our complaint management platform</p>
                 </div>
                 
-                <form method="POST" action="{{ url_for('register') }}" class="space-y-6">
+                <form id="registerForm" class="space-y-6">
                     <div>
                         <label for="username" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Username</label>
                         <div class="relative">
@@ -78,18 +78,11 @@
                         </div>
                     </div>
                     
-                    <div class="mt-6 grid grid-cols-3 gap-3">
-                        <button type="button" 
+                    <div class="mt-6 grid grid-cols-1 gap-3">
+                        <button type="button" id="googleSignUp"
                                 class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm bg-white dark:bg-dark-200 text-sm font-medium text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-dark-300">
-                            <i class="fab fa-google"></i>
-                        </button>
-                        <button type="button"
-                                class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm bg-white dark:bg-dark-200 text-sm font-medium text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-dark-300">
-                            <i class="fab fa-facebook-f"></i>
-                        </button>
-                        <button type="button"
-                                class="w-full inline-flex justify-center py-2 px-4 border border-gray-300 dark:border-gray-600 rounded-lg shadow-sm bg-white dark:bg-dark-200 text-sm font-medium text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-dark-300">
-                            <i class="fab fa-github"></i>
+                            <i class="fab fa-google mr-2"></i>
+                            <span>Sign up with Google</span>
                         </button>
                     </div>
                 </div>
@@ -106,4 +99,87 @@
         </div>
     </div>
 </div>
+
+<script>
+    // Firebase Authentication
+    const registerForm = document.getElementById('registerForm');
+    const googleSignUp = document.getElementById('googleSignUp');
+    
+    // Email/Password Registration
+    registerForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const username = document.getElementById('username').value;
+        
+        firebase.auth().createUserWithEmailAndPassword(email, password)
+            .then((userCredential) => {
+                // Signed in
+                const user = userCredential.user;
+                
+                // Update profile with username
+                return user.updateProfile({
+                    displayName: username
+                }).then(() => {
+                    // Send email verification
+                    return user.sendEmailVerification();
+                });
+            })
+            .then(() => {
+                // Sign out the user since they need to verify email
+                return firebase.auth().signOut();
+            })
+            .then(() => {
+                // Show verification message
+                alert('Registration successful! Please check your email to verify your account before logging in.');
+                // Redirect to login page
+                window.location.href = "{{ url_for('login') }}";
+            })
+            .catch((error) => {
+                console.error('Error registering:', error);
+                // Show error message to user
+                alert(error.message);
+            });
+    });
+    
+    // Google Sign Up
+    googleSignUp.addEventListener('click', () => {
+        const provider = new firebase.auth.GoogleAuthProvider();
+        
+        firebase.auth().signInWithPopup(provider)
+            .then((result) => {
+                // This gives you a Google Access Token
+                const credential = result.credential;
+                const token = credential.accessToken;
+                const user = result.user;
+                console.log('Google sign up successful:', user);
+                
+                // Get the ID token
+                return user.getIdToken();
+            })
+            .then((idToken) => {
+                // Send token to backend
+                return fetch('/firebase/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ idToken })
+                });
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    throw new Error(data.error);
+                }
+                // Redirect to dashboard or home page
+                window.location.href = "{{ url_for('dashboard') }}";
+            })
+            .catch((error) => {
+                console.error('Error with Google sign up:', error);
+                // Show error message to user
+                alert(error.message);
+            });
+    });
+</script>
 {% endblock %} 

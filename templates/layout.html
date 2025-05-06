@@ -6,7 +6,38 @@
     <title>Complaint Management System - {% block title %}{% endblock %}</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Firebase App (the core Firebase SDK) -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <!-- Firebase Auth -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
     <script>
+        // Your Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDto2uID_Rlw7VZUjMYqL8QmXgluAW6-uk",
+            authDomain: "complaint-auth.firebaseapp.com",
+            projectId: "complaint-auth",
+            storageBucket: "complaint-auth.firebasestorage.app",
+            messagingSenderId: "37265003220",
+            appId: "1:37265003220:web:f8aceed8c34d84cedfe141",
+            measurementId: "G-1587P7GM4K"
+        };
+
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+        // Firebase Auth State Observer
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                // User is signed in
+                console.log('User is signed in:', user);
+                // You can update UI elements here based on authentication state
+            } else {
+                // User is signed out
+                console.log('User is signed out');
+                // You can update UI elements here based on authentication state
+            }
+        });
+
         tailwind.config = {
             darkMode: 'class',
             theme: {
