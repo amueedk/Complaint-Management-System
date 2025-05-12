@@ -13,6 +13,7 @@ import logging
 import firebase_admin
 from firebase_admin import credentials, auth
 import json
+from sqlalchemy import text
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -89,23 +90,13 @@ class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), unique=True, nullable=False)
     email = db.Column(db.String(100), unique=True, nullable=False)
-    password = db.Column(db.String(200), nullable=False)  # Changed back to not nullable
+    password = db.Column(db.String(200), nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
     date_joined = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     complaints = db.relationship('Complaint', backref='user', lazy=True)
     hostel_id = db.Column(db.Integer, db.ForeignKey('hostel.id'), nullable=True)
     room_number = db.Column(db.String(20), nullable=True)
-    
-    # Add session-based property for Firebase UID
-    _firebase_uid = None
-    
-    @property
-    def firebase_uid(self):
-        return self._firebase_uid
-        
-    @firebase_uid.setter
-    def firebase_uid(self, value):
-        self._firebase_uid = value
+    firebase_uid = db.Column(db.String(128), unique=True, nullable=True)
     
     @property
     def complaint_count(self):
@@ -565,8 +556,31 @@ def admin_users():
         flash('You do not have permission to access this page')
         return redirect(url_for('dashboard'))
     
-    users = User.query.all()
-    return render_template('admin_users.html', users=users)
+    try:
+        # Get all users with their relationships
+        users = User.query.all()
+        logger.info(f"Fetched {len(users)} users")
+        
+        # Convert users to dictionaries for template rendering
+        user_list = []
+        for user in users:
+            user_dict = {
+                'id': user.id,
+                'username': user.username,
+                'email': user.email,
+                'is_admin': user.is_admin,
+                'date_joined': user.date_joined,
+                'hostel': user.hostel.name if user.hostel else None,
+                'room_number': user.room_number,
+                'complaints_count': len(user.complaints)
+            }
+            user_list.append(user_dict)
+        
+        return render_template('admin_users.html', users=user_list)
+    except Exception as e:
+        logger.error(f"Error in admin_users route: {str(e)}")
+        flash('Error loading users')
+        return redirect(url_for('dashboard'))
 
 @application.route('/admin/hostels')
 @login_required
@@ -676,61 +690,211 @@ def uploaded_file(filename):
         return redirect(url_for('dashboard'))
     return send_file(os.path.join(application.config['UPLOAD_FOLDER'], filename))
 
+@application.route('/admin/complaint/<int:complaint_id>/delete', methods=['POST'])
+@login_required
+def delete_complaint(complaint_id):
+    if not current_user.is_admin:
+        flash('You do not have permission to delete complaints')
+        return redirect(url_for('dashboard'))
+    
+    try:
+        complaint = Complaint.query.get_or_404(complaint_id)
+        
+        # Delete attachments from S3/local storage
+        for attachment in complaint.attachments:
+            try:
+                if os.getenv('FLASK_ENV') == 'production':
+                    # Delete from S3
+                    file_key = attachment.file_path.split('/')[-1]
+                    s3_client.delete_object(
+                        Bucket=application.config['S3_BUCKET'],
+                        Key=file_key
+                    )
+                else:
+                    # Delete from local storage
+                    file_path = os.path.join(application.config['UPLOAD_FOLDER'], attachment.filename)
+                    if os.path.exists(file_path):
+                        os.remove(file_path)
+            except Exception as e:
+                logger.error(f"Error deleting attachment: {str(e)}")
+        
+        # Delete all associated records
+        Response.query.filter_by(complaint_id=complaint.id).delete()
+        StatusUpdate.query.filter_by(complaint_id=complaint.id).delete()
+        Attachment.query.filter_by(complaint_id=complaint.id).delete()
+        
+        # Delete the complaint
+        db.session.delete(complaint)
+        db.session.commit()
+        
+        flash('Complaint and all associated data deleted successfully')
+    except Exception as e:
+        db.session.rollback()
+        logger.error(f"Error deleting complaint: {str(e)}")
+        flash('Error deleting complaint')
+    
+    return redirect(url_for('dashboard'))
+
+@application.route('/admin/user/<int:user_id>/delete', methods=['POST'])
+@login_required
+def delete_user(user_id):
+    if not current_user.is_admin:
+        flash('You do not have permission to delete users')
+        return redirect(url_for('dashboard'))
+    
+    try:
+        user = User.query.get_or_404(user_id)
+        
+        # Don't allow deleting the last admin
+        if user.is_admin and User.query.filter_by(is_admin=True).count() <= 1:
+            flash('Cannot delete the last admin user')
+            return redirect(url_for('admin_users'))
+        
+        # Get all complaints by this user
+        user_complaints = Complaint.query.filter_by(user_id=user.id).all()
+        
+        # Delete all attachments and associated data for each complaint
+        for complaint in user_complaints:
+            for attachment in complaint.attachments:
+                try:
+                    if os.getenv('FLASK_ENV') == 'production':
+                        # Delete from S3
+                        file_key = attachment.file_path.split('/')[-1]
+                        s3_client.delete_object(
+                            Bucket=application.config['S3_BUCKET'],
+                            Key=file_key
+                        )
+                    else:
+                        # Delete from local storage
+                        file_path = os.path.join(application.config['UPLOAD_FOLDER'], attachment.filename)
+                        if os.path.exists(file_path):
+                            os.remove(file_path)
+                except Exception as e:
+                    logger.error(f"Error deleting attachment: {str(e)}")
+            
+            # Delete all associated records for each complaint
+            Response.query.filter_by(complaint_id=complaint.id).delete()
+            StatusUpdate.query.filter_by(complaint_id=complaint.id).delete()
+            Attachment.query.filter_by(complaint_id=complaint.id).delete()
+            db.session.delete(complaint)
+        
+        # Delete user's responses
+        Response.query.filter_by(user_id=user.id).delete()
+        
+        # Delete user from Firebase if in production
+        if os.getenv('FLASK_ENV') == 'production' and user.firebase_uid:
+            try:
+                auth.delete_user(user.firebase_uid)
+            except Exception as e:
+                logger.error(f"Error deleting user from Firebase: {str(e)}")
+        
+        # Delete the user
+        db.session.delete(user)
+        db.session.commit()
+        
+        flash('User and all associated data deleted successfully')
+    except Exception as e:
+        db.session.rollback()
+        logger.error(f"Error deleting user: {str(e)}")
+        flash('Error deleting user')
+    
+    return redirect(url_for('admin_users'))
+
 # Initialize database tables
 def init_db():
     with application.app_context():
         try:
             logger.info("Attempting to create database tables...")
             logger.info(f"Database URL: {application.config['SQLALCHEMY_DATABASE_URI']}")
-            db.create_all()
-            logger.info("Database tables created successfully")
             
-            # Verify tables were created
+            # Create all tables
+            db.create_all()
+            
+            # Check if firebase_uid column exists in RDS
             inspector = db.inspect(db.engine)
-            tables = inspector.get_table_names()
-            logger.info(f"Created tables: {tables}")
+            columns = [col['name'] for col in inspector.get_columns('user')]
+            
+            if 'firebase_uid' not in columns:
+                logger.info("Adding firebase_uid column to user table in RDS...")
+                try:
+                    # Use SQLAlchemy's text() for safe SQL execution
+                    with db.engine.connect() as conn:
+                        # First check if column exists (double safety)
+                        result = conn.execute(text("""
+                            SELECT COUNT(*) 
+                            FROM information_schema.columns 
+                            WHERE table_name = 'user' 
+                            AND column_name = 'firebase_uid'
+                        """))
+                        if result.scalar() == 0:
+                            # Add column if it doesn't exist - Note the double quotes around 'user'
+                            conn.execute(text("""
+                                ALTER TABLE "user" 
+                                ADD COLUMN firebase_uid VARCHAR(128) UNIQUE
+                            """))
+                            conn.commit()
+                            logger.info("firebase_uid column added successfully to RDS")
+                            
+                            # Update existing users to have NULL firebase_uid
+                            conn.execute(text("""
+                                UPDATE "user" 
+                                SET firebase_uid = NULL 
+                                WHERE firebase_uid IS NULL
+                            """))
+                            conn.commit()
+                            logger.info("Updated existing users with NULL firebase_uid")
+                except Exception as e:
+                    logger.error(f"Error adding firebase_uid column to RDS: {str(e)}")
+                    # Don't raise the exception, just log it
+                    # This prevents the application from failing to start
+            
+            logger.info("Database tables verified/updated successfully")
             
         except Exception as e:
-            logger.error(f"Error creating database tables: {str(e)}")
+            logger.error(f"Error in database initialization: {str(e)}")
             logger.error(f"Error type: {type(e).__name__}")
-            logger.error(f"Error details: {e.__dict__ if hasattr(e, '__dict__') else 'No details available'}")
-            raise
+            # Log the error but don't raise it
+            # This allows the application to start even if there's a DB issue
 
 # Initialize the database when the application starts
 init_db()
 
 # Create admin user and initialize hostels if not exists
 with application.app_context():
-    # Create admin user if not exists
-    admin = User.query.filter_by(username='admin').first()
-    if not admin:
-        hashed_password = generate_password_hash('admin123', method='pbkdf2:sha256')
-        admin = User(username='admin', email='admin@example.com', password=hashed_password, is_admin=True)
-        db.session.add(admin)
-        db.session.commit()
-    
-    # Create default hostels if none exist
-    if Hostel.query.count() == 0:
-        hostels_data = [
-            {'name': 'Hostel 1', 'capacity': 200, 'description': 'Boys hostel with single and double rooms'},
-            {'name': 'Hostel 2', 'capacity': 180, 'description': 'Boys hostel with double rooms'},
-            {'name': 'Hostel 3', 'capacity': 220, 'description': 'Boys hostel with single and double rooms'},
-            {'name': 'Hostel 4', 'capacity': 250, 'description': 'Girls hostel with double and triple rooms'},
-            {'name': 'Hostel 5', 'capacity': 200, 'description': 'Girls hostel with single and double rooms'},
-            {'name': 'Hostel 6', 'capacity': 180, 'description': 'Girls hostel with double rooms'},
-            {'name': 'Hostel 7', 'capacity': 150, 'description': 'International students hostel with single rooms'},
-            {'name': 'Hostel 8', 'capacity': 220, 'description': 'Mixed hostel with single rooms'},
-            {'name': 'Hostel 9', 'capacity': 240, 'description': 'Boys hostel with single and double rooms'},
-            {'name': 'Hostel 10', 'capacity': 180, 'description': 'Girls hostel with single and double rooms'},
-            {'name': 'Hostel 11', 'capacity': 160, 'description': 'Postgraduate hostel with single rooms'},
-            {'name': 'Hostel 12', 'capacity': 200, 'description': 'Research scholars hostel with single rooms'}
-        ]
+    try:
+        # Create admin user if not exists
+        admin = User.query.filter_by(username='admin').first()
+        if not admin:
+            hashed_password = generate_password_hash('admin123', method='pbkdf2:sha256')
+            admin = User(username='admin', email='admin@example.com', password=hashed_password, is_admin=True)
+            db.session.add(admin)
+            db.session.commit()
         
-        for hostel_data in hostels_data:
-            hostel = Hostel(**hostel_data)
-            db.session.add(hostel)
-        
-        db.session.commit()
+        # Create default hostels if none exist
+        if Hostel.query.count() == 0:
+            hostels_data = [
+                {'name': 'Hostel 1', 'capacity': 200, 'description': 'Boys hostel with single and double rooms'},
+                {'name': 'Hostel 2', 'capacity': 180, 'description': 'Boys hostel with double rooms'},
+                {'name': 'Hostel 3', 'capacity': 220, 'description': 'Boys hostel with single and double rooms'},
+                {'name': 'Hostel 4', 'capacity': 250, 'description': 'Girls hostel with double and triple rooms'},
+                {'name': 'Hostel 5', 'capacity': 200, 'description': 'Girls hostel with single and double rooms'},
+                {'name': 'Hostel 6', 'capacity': 180, 'description': 'Girls hostel with double rooms'},
+                {'name': 'Hostel 7', 'capacity': 150, 'description': 'International students hostel with single rooms'},
+                {'name': 'Hostel 8', 'capacity': 220, 'description': 'Mixed hostel with single rooms'},
+                {'name': 'Hostel 9', 'capacity': 240, 'description': 'Boys hostel with single and double rooms'},
+                {'name': 'Hostel 10', 'capacity': 180, 'description': 'Girls hostel with single and double rooms'},
+                {'name': 'Hostel 11', 'capacity': 160, 'description': 'Postgraduate hostel with single rooms'},
+                {'name': 'Hostel 12', 'capacity': 200, 'description': 'Research scholars hostel with single rooms'}
+            ]
+            
+            for hostel_data in hostels_data:
+                hostel = Hostel(**hostel_data)
+                db.session.add(hostel)
+            
+            db.session.commit()
+    except Exception as e:
+        logger.error(f"Error in initial data setup: {str(e)}")
+        db.session.rollback()
 
 if __name__ == '__main__':
     application.run(debug=os.getenv('FLASK_ENV') != 'production') 
