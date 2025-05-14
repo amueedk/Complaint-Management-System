@@ -21,7 +21,7 @@ A web-based application built with Flask for managing hostel complaints. The sys
 - **Authentication**: Firebase Authentication
 - **File Storage**: AWS S3
 - **Deployment**: AWS Elastic Beanstalk
-- **Environment**: Python 3.8
+- **Environment**: Python 3.11
 
 ## Cloud Architecture
 
@@ -56,11 +56,7 @@ The application is deployed using the following AWS services:
 
 ### Local Development
 
-1. Clone the repository:
-```
-git clone https://github.com/yourusername/complaint-management-system.git
-cd complaint-management-system
-```
+1. Clone the repository from GitHub and navigate to the project directory.
 
 2. Create and activate a virtual environment:
 ```
@@ -98,7 +94,7 @@ python application.py
 1. Create AWS resources:
    - RDS PostgreSQL database
    - S3 bucket for file storage
-   - Elastic Beanstalk environment with Python 3.8 platform
+   - Elastic Beanstalk environment with Python 3.11 platform
 
 2. Set up Firebase project:
    - Enable Authentication
