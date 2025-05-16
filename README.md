@@ -198,7 +198,3 @@ The application supports both SQLite (development) and PostgreSQL (production):
 ```python
 application.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL', 'sqlite:///complaints.db')
 ```
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details. 
